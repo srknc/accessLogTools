@@ -6,10 +6,13 @@ USAGE: /opt/scripts/accessLog_activeIps.py [ (access log file) | LAST  ]
 	[access log file]	:	process file
 NOTE:
 	- log file location	:	/storage/nswl/2012/03/14/20120314-08.log
-	- log format		:		
+	- log format		:	2012-11-14.10:11:32 100.100.100.100 GET www.abc.com 200 - [Back:172.20.7.51] [0sec.] [9500micros.] [byteRcvd:1055] [byteSent:237] / Agent:Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)	
 """
+
+
 depth=30
 log_file_path="/storage/nswl/"
+
 
 import sys
 import subprocess
@@ -87,9 +90,14 @@ for ip_count in ip_list_counted_all:
 			if ("netname" in who_line or "descr" in who_line or "OrgName" in who_line or "Network-Name" in who_line):
 				#if there are no "space", split with ":"
 				if not ( ' ' in who_line ):
-					who_line=who_line.rstrip('\n')
-					who_line=who_line.split(":")
-					who=who+who_line[2]+" "	
+                                        who_line=who_line.rstrip('\n')
+                                        who_line=who_line.split(":")
+                                        if ( len(who_line) == 3 ):
+                                                who=who+who_line[2]+" "
+                                        elif ( len(who_line) == 2) :
+                                                who=who+who_line[1]+" "
+                                        else:   
+                                                who=who+who_line[0]+" "				
 				else:
 					who_line=who_line.split()
 					who=who+who_line[1]+" "
