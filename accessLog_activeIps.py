@@ -1,5 +1,8 @@
 #!/usr/bin/python
 #serkan.capkan
+#last version: https://github.com/srknc/accessLogTools 
+
+
 """
 USAGE: /opt/scripts/accessLog_activeIps.py [ (access log file) | LAST  ] 
 	LAST			:	determine last access log file and process file
